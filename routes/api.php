@@ -18,6 +18,10 @@ Route::get('/view/transactions', 'TransactionsController@showMonth')->middleware
 Route::get('/transactions/getYears','TransactionsController@getAllYears')->middleware('jwt.auth');
 Route::get('/transactions', 'TransactionsController@show')->middleware('jwt.auth');
 Route::post('/transactions', 'TransactionsController@create')->middleware('jwt.auth');
+Route::delete('/transactions/{id}', 'TransactionsController@delete')->middleware('jwt.auth');
+
+Route::post('/transaction_categories', 'TransactionCategoryController@create')->middleware('jwt.auth');
+Route::get('/transaction_categories', 'TransactionCategoryController@getAllUserCategories')->middleware('jwt.auth');
 
 Route::post('/register','AuthenticateController@create');
 Route::post('/login','AuthenticateController@authenticate');
