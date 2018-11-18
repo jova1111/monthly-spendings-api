@@ -24,7 +24,7 @@ class MoneyPerMonthController extends Controller
     }
 
     public function getMoneyPerMonth(Request $request){
-        return auth()->user()->monthlyMoney()->whereMonth('created_at','=', $request->Month)->whereYear('created_at', '=', $request->Year)->get();
+        return auth()->user()->monthlyMoney()->whereMonth('created_at','=', $request->Month)->whereYear('created_at', '=', $request->Year)->first();
     }
 
     
