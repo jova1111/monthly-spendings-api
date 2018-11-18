@@ -27,6 +27,7 @@ class TransactionsController extends Controller
 
     function showMonth(Request $request)
     {
+        
         return auth()->user()->transactions()->with('transactionCategory')->whereMonth('created_at','=', $request->Month)->whereYear('created_at', '=', $request->Year)->latest()->get();
     }
 

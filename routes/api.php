@@ -22,6 +22,8 @@ Route::delete('/transactions/{id}', 'TransactionsController@delete')->middleware
 
 Route::post('/transaction_categories', 'TransactionCategoryController@create')->middleware('jwt.auth');
 Route::get('/transaction_categories', 'TransactionCategoryController@getAllUserCategories')->middleware('jwt.auth');
+Route::put('/transactions/money_per_month', 'MoneyPerMonthController@update')->middleware('jwt.auth');
+Route::get('/transactions/money_per_month', 'MoneyPerMonthController@getMoneyPerMonth')->middleware('jwt.auth');
 
 Route::post('/register','AuthenticateController@create');
 Route::post('/login','AuthenticateController@authenticate');

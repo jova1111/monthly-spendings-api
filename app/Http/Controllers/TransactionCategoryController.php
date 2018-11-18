@@ -32,6 +32,7 @@ class TransactionCategoryController extends Controller
         if(TransactionCategory::where('name', '=', $request['name'])->exists()) {
             return response('Transaction category with given name already exists.', 400);
         }
+        
         $category = new TransactionCategory(
             $request->only(['name'])
         );

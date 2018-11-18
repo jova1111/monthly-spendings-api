@@ -35,4 +35,7 @@ class User extends Authenticatable
     public function transactionCategories() {
         return $this->hasMany('App\TransactionCategory');
     }
+    public function monthlyMoney() {
+        return $this->hasMany('App\MoneyPerMonth');
+    }
 }   
