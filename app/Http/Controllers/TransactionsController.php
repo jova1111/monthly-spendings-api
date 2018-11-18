@@ -42,8 +42,9 @@ class TransactionsController extends Controller
     }
 
     function delete($id) {
-        Transaction::destroy($id);
+        
         if (Transaction::where('id', '=', $id)->exists()) {
+            Transaction::destroy($id);
             return response('Successfully deleted.', 200);
         }
         return response('No transaction with that id.', 400);
