@@ -19,6 +19,8 @@ Route::get('/transactions/getYears','TransactionsController@getAllYears')->middl
 Route::get('/transactions', 'TransactionsController@show')->middleware('jwt.auth');
 Route::post('/transactions', 'TransactionsController@create')->middleware('jwt.auth');
 Route::delete('/transactions/{id}', 'TransactionsController@delete')->middleware('jwt.auth');
+Route::get('/transactions/current_year', 'TransactionsController@getAllByCurrentYear')->middleware('jwt.auth');
+Route::get('/transaction/year/{year}', 'TransactionsController@getTransactionsGroupedByCategoryByYear')->middleware('jwt.auth');
 
 Route::post('/transaction_categories', 'TransactionCategoryController@create')->middleware('jwt.auth');
 Route::get('/transaction_categories', 'TransactionCategoryController@getAllUserCategories')->middleware('jwt.auth');

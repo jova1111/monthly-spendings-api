@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\TransactionCategory;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -46,6 +47,11 @@ class AuthenticateController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+
+        $category = new TransactionCategory;
+        $category->name = "No category";
+        $user->transactionCategories()->save($category);
+
         return 'User created!'; 
     }
 }

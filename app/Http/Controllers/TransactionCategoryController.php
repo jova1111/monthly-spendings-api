@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\TransactionCategory;
 use Illuminate\Http\Request;
 
@@ -41,26 +42,4 @@ class TransactionCategoryController extends Controller
         return response($category, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TransactionCategory  $transactionCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TransactionCategory $transactionCategory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TransactionCategory  $transactionCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TransactionCategory $transactionCategory)
-    {
-        //
-    }
 }
