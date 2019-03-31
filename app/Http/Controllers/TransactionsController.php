@@ -19,10 +19,11 @@ class TransactionsController extends Controller
     function getAllYears()
     {
         return auth()->user()->transactions()->select(DB::raw('DISTINCT YEAR(created_at) as year'))->pluck('year');
-        
-        /*->groupBy(function($item){
-             return $item->created_at->format('Y');
-            });*/
+    }
+
+    function getAllByCurrentYear()
+    {
+        return auth()->user()->transactions()->with('transactionCategory')->whereYear('created_at', '=', date("Y"))->get();
     }
 
     function showMonth(Request $request)
@@ -49,4 +50,17 @@ class TransactionsController extends Controller
         }
         return response('No transaction with that id.', 400);
     }
+
+    public function getTransactionsGroupedByCategoryByYear($year) {
+        return auth()
+            ->user()
+            ->transactions()
+            ->whereYear('created_at', '=', $year)
+            ->get()
+            ->makeHidden('transactionCategory')
+            ->groupBy(function($d) {
+                return $d->transactionCategory->name;
+            });
+            
+        }
 }
