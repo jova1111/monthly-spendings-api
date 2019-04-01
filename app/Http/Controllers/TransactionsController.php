@@ -21,9 +21,9 @@ class TransactionsController extends Controller
         return auth()->user()->transactions()->select(DB::raw('DISTINCT YEAR(created_at) as year'))->pluck('year');
     }
 
-    function getAllByCurrentYear()
+    function getAllByYear(Request $request)
     {
-        return auth()->user()->transactions()->with('transactionCategory')->whereYear('created_at', '=', date("Y"))->get();
+        return auth()->user()->transactions()->with('transactionCategory')->whereYear('created_at', '=', $request->year)->get();
     }
 
     function showMonth(Request $request)
