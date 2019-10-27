@@ -40,7 +40,7 @@ class AuthenticateController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed'
         ]);
-
+        
         $user = new User;
 
         $user->username = $request->username;
