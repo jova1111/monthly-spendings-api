@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 Route::get('/view/transactions', 'TransactionsController@showMonth')->middleware('jwt.auth');
-Route::get('/transactions/getYears','TransactionsController@getAllYears')->middleware('jwt.auth');
+Route::get('/transactions/getYears', 'TransactionsController@getAllYears')->middleware('jwt.auth');
 Route::get('/transactions', 'TransactionsController@show')->middleware('jwt.auth');
 Route::post('/transactions', 'TransactionsController@create')->middleware('jwt.auth');
 Route::delete('/transactions/{id}', 'TransactionsController@delete')->middleware('jwt.auth');
@@ -27,5 +27,6 @@ Route::get('/transaction_categories', 'TransactionCategoryController@getAllUserC
 Route::put('/transactions/money_per_month', 'MoneyPerMonthController@update')->middleware('jwt.auth');
 Route::get('/transactions/money_per_month', 'MoneyPerMonthController@getMoneyPerMonth')->middleware('jwt.auth');
 
-Route::post('/register','AuthenticateController@create');
-Route::post('/login','AuthenticateController@authenticate');
+Route::post('/register', 'AuthenticationController@create');
+Route::post('/login', 'AuthenticationController@authenticate');
+Route::post('/test', 'AuthenticationController@test')->middleware('jwt.auth');;

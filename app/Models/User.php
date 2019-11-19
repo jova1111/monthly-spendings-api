@@ -1,28 +1,54 @@
 <?php
+
 namespace App\Models;
+
+use App\Models\Category;
 
 class User
 {
-    private $_id;
+    public $id;
     private $_username;
+    private $_email;
+    private $_password;
+    private $_categories = array();
 
-    public function setId(int $id) 
-    {
-        $this->_id = $id;
-    }
-
-    public function getId() 
-    {
-        return $this->_id;
-    }
-
-    public function setUsername($username) 
+    public function setUsername($username)
     {
         $this->_username = $username;
     }
 
-    public function getUsername() 
+    public function getUsername()
     {
         return $this->_username;
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->_email = $email;
+    }
+
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+
+    public function setPassword(string $password)
+    {
+        $this->_password = $password;
+    }
+
+    public function getPassword()
+    {
+        return $this->_password;
+    }
+
+    public function addCategory(Category $category)
+    {
+        $this->_categories . push($category);
+    }
+
+    public function getCategories()
+    {
+        return $this->_categories;
     }
 }

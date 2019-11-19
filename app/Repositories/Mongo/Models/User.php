@@ -4,10 +4,11 @@ namespace App\Repositories\Mongo\Models;
 
 use Moloquent;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Authenticable as AuthenticableTrait;
-use Illuminate\Contracts\Authenticable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Moloquent
+class User extends Moloquent implements Authenticatable, JWTSubject
 {
     use AuthenticableTrait;
     use Notifiable;
@@ -32,14 +33,26 @@ class User extends Moloquent
         'password', 'remember_token',
     ];
 
-    public function transactions() {
+    public function getJWTIdentifier()
+    {
+        return $this->id;
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function transactions()
+    {
         return $this->hasMany('App\Transaction');
     }
 
-    public function transactionCategories() {
-        return $this->hasMany('App\TransactionCategory');
+    public function categories()
+    {
+        return $this->hasMany('App\Repositories\Mongo\Models\Category');
     }
-    public function monthlyMoney() {
+    public function monthlyMoney()
+    {
         return $this->hasMany('App\MoneyPerMonth');
     }
-}   
+}

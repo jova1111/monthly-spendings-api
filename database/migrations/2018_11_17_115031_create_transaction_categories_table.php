@@ -13,8 +13,9 @@ class CreateTransactionCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->string('name');
+            $table->string('owner_id');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateTransactionCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_categories');
+        Schema::dropIfExists('categories');
     }
 }

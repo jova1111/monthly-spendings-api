@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -13,63 +13,63 @@ class Transaction
     private $_owner;
     private $_group;
 
-    public function setId($id) 
+    public function setId(string $id)
     {
         $this->_id = $id;
     }
 
-    public function getId() 
+    public function getId()
     {
-        return $this->$id;
+        return $this->_id;
     }
 
-    public function setAmount($amount) 
+    public function setAmount(int $amount)
     {
         $this->_amount = $amount;
     }
 
-    public function getAmonut() 
+    public function getAmonut()
     {
         return $this->_amount;
     }
 
-    public function setDescription($description) 
+    public function setDescription(string $description)
     {
-        $this->$_description = $description;
+        $this->_description = $description;
     }
 
-    public function getDescription() 
+    public function getDescription()
     {
         return $this->_description;
     }
 
-    public function setCreatedAt($created_at) 
+    public function setCreatedAt($created_at)
     {
         $this->_created_at = $created_at;
     }
 
-    public function getCreatedAt() 
+    public function getCreatedAt()
     {
         return $this->_created_at;
     }
 
-    public function setOwner($owner) 
+    public function setOwner(User $owner)
     {
         $this->_owner = $owner;
     }
 
-    public function getOwner() 
+    public function getOwner()
     {
         return $this->_owner;
     }
 
-    public function setGroup($group) 
+    public function setGroup($group)
     {
-        $this->$group = $group;
+        $this->_group = $group;
     }
 
-    public function getGroup() 
+    public function getGroup()
     {
-        return $this->$group;
+        return $this->_group;
     }
 }
