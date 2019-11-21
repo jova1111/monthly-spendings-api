@@ -8,35 +8,35 @@ use App\Services\Contracts\TransactionService;
 
 class DefaultTransactionService implements TransactionService
 {
-    private $_transactions;
+    private $transactionRepository;
 
-    public function __construct(TransactionRepository $transactions)
+    public function __construct(TransactionRepository $transactionRepository)
     {
-        $this->_transactions = $transactions;
+        $this->transactionRepository = $transactionRepository;
     }
 
-    public function create(Transaction $transaction)
+    public function create(Transaction $transaction): Transaction
     {
-        return $this->_transactions->create($transaction);
+        return $this->transactionRepository->create($transaction);
     }
 
-    public function get(int $id)
+    public function get(string $id): ?Transaction
     {
-        return $this->_transactions->get($id);
+        return $this->transactionRepository->get($id);
     }
 
-    public function getAll(int $owner_id = null)
+    public function getAll(string $ownerId = null)
     {
-        return $this->_transactions->getAll($owner_id);
+        return $this->transactionRepository->getAll($ownerId);
     }
 
     public function update(Transaction $transaction)
     {
-        return $this->_transactions->update($transaction);
+        return $this->transactionRepository->update($transaction);
     }
 
-    public function delete($id)
+    public function delete(string $id)
     {
-        return $this->_transactions->delete($id);
+        return $this->transactionRepository->delete($id);
     }
 }

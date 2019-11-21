@@ -12,7 +12,7 @@ class Category extends Moloquent
 
     public function transactions()
     {
-        return $this->hasMany('App\Transaction');
+        return $this->hasMany('App\Repositories\Mongo\Models\Transaction');
     }
 
     public function owner()

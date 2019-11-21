@@ -4,51 +4,68 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Transaction;
+use JsonSerializable;
 
-class Category
+class Category implements JsonSerializable
 {
-    private $_id;
-    private $_name;
-    private $_owner;
-    private $_transactions = array();
+    private $id;
+    private $name;
+    public $owner;
+    private $creationDate;
+    private $transactions = array();
 
     public function setId(string $id)
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     public function setName(string $name)
     {
-        $this->_name = $name;
+        $this->name = $name;
     }
 
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
+    }
+
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    public function getCreationDate()
+    {
+        return $this->creationDate;
     }
 
     public function setOwner(User $owner)
     {
-        $this->_owner = $owner;
+        $this->owner = $owner;
     }
 
     public function getOwner()
     {
-        return $this->_owner;
+        return $this->owner;
     }
 
     public function addTransaction(Transaction $transaction)
     {
-        $this->_transactions . push($transaction);
+        array_push($this->transactions, $transaction);
     }
 
     public function getTransactions()
     {
-        return $this->_transactions;
+        return $this->transactions;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

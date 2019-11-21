@@ -3,52 +3,68 @@
 namespace App\Models;
 
 use App\Models\Category;
+use JsonSerializable;
 
-class User
+class User implements JsonSerializable
 {
-    public $id;
-    private $_username;
-    private $_email;
-    private $_password;
-    private $_categories = array();
+    private $id;
+    private $username;
+    private $email;
+    private $password;
+    private $categories = array();
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setUsername($username)
     {
-        $this->_username = $username;
+        $this->username = $username;
     }
 
     public function getUsername()
     {
-        return $this->_username;
+        return $this->username;
     }
 
     public function setEmail(string $email)
     {
-        $this->_email = $email;
+        $this->email = $email;
     }
 
     public function getEmail()
     {
-        return $this->_email;
+        return $this->email;
     }
 
     public function setPassword(string $password)
     {
-        $this->_password = $password;
+        $this->password = $password;
     }
 
     public function getPassword()
     {
-        return $this->_password;
+        return $this->password;
     }
 
     public function addCategory(Category $category)
     {
-        $this->_categories . push($category);
+        array_push($this->categories, $category);
     }
 
     public function getCategories()
     {
-        return $this->_categories;
+        return $this->categories;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

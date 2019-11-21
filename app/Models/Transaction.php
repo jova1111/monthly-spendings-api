@@ -3,73 +3,79 @@
 namespace App\Models;
 
 use App\Models\User;
+use JsonSerializable;
 
-class Transaction
+class Transaction implements JsonSerializable
 {
-    private $_id;
-    private $_amount;
-    private $_description;
-    private $_created_at;
-    private $_owner;
-    private $_group;
+    private $id;
+    private $amount;
+    private $description;
+    private $creationDate;
+    private $owner;
+    private $category;
 
     public function setId(string $id)
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
 
     public function setAmount(int $amount)
     {
-        $this->_amount = $amount;
+        $this->amount = $amount;
     }
 
     public function getAmonut()
     {
-        return $this->_amount;
+        return $this->amount;
     }
 
     public function setDescription(string $description)
     {
-        $this->_description = $description;
+        $this->description = $description;
     }
 
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
-    public function setCreatedAt($created_at)
+    public function setCreationDate($creationDate)
     {
-        $this->_created_at = $created_at;
+        $this->creationDate = $creationDate;
     }
 
-    public function getCreatedAt()
+    public function getCreationDate()
     {
-        return $this->_created_at;
+        return $this->creationDate;
     }
 
     public function setOwner(User $owner)
     {
-        $this->_owner = $owner;
+        $this->owner = $owner;
     }
 
     public function getOwner()
     {
-        return $this->_owner;
+        return $this->owner;
     }
 
-    public function setGroup($group)
+    public function setCategory(Category $category)
     {
-        $this->_group = $group;
+        $this->category = $category;
     }
 
-    public function getGroup()
+    public function getCategory()
     {
-        return $this->_group;
+        return $this->category;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

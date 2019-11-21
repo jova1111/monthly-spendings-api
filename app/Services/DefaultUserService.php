@@ -10,18 +10,18 @@ use App\Services\Contracts\UserService;
 
 class DefaultUserService implements UserService
 {
-    private $_userRepository;
-    private $_categoryRepository;
+    private $userRepository;
+    private $categoryRepository;
 
     public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository)
     {
-        $this->_userRepository = $userRepository;
-        $this->_categoryRepository = $categoryRepository;
+        $this->userRepository = $userRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function create(User $user): User
     {
-        $newUser = $this->_userRepository->create($user);
+        $newUser = $this->userRepository->create($user);
 
         // create default categories for a new user
         $noCategory = new Category;
@@ -31,33 +31,33 @@ class DefaultUserService implements UserService
         $foodCategory->setName("Food");
         $foodCategory->setOwner($newUser);
 
-        $this->_categoryRepository->create($noCategory);
-        $this->_categoryRepository->create($foodCategory);
+        $this->categoryRepository->create($noCategory);
+        $this->categoryRepository->create($foodCategory);
         return $newUser;
     }
 
     public function get(string $id): ?User
     {
-        return $this->_userRepository->get($id);
+        return $this->userRepository->get($id);
     }
 
     public function getByEmailAndPassword(string $email, string $password): ?User
     {
-        return $this->_userRepository->getByEmailAndPassword($email, $password);
+        return $this->userRepository->getByEmailAndPassword($email, $password);
     }
 
     public function getAll()
     {
-        return $this->_userRepository->getAll();
+        return $this->userRepository->getAll();
     }
 
     public function update(User $user)
     {
-        return $this->_userRepository->update($user);
+        return $this->userRepository->update($user);
     }
 
     public function delete($id)
     {
-        return $this->_userRepository->delete($id);
+        return $this->userRepository->delete($id);
     }
 }

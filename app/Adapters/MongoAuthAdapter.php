@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class MongoAuthAdapter implements Auth
 {
-    private $_authenticatedUser;
+    private $authenticatedUser;
 
     /**
      * Check a user's credentials.
@@ -19,7 +19,7 @@ class MongoAuthAdapter implements Auth
      */
     public function byCredentials(array $credentials)
     {
-        $user = $this->_authenticatedUser = RepoUser::where(['email' => $credentials['email']])->first();
+        $user = $this->authenticatedUser = RepoUser::where(['email' => $credentials['email']])->first();
         if (is_null($user)) {
             return false;
         }
@@ -35,7 +35,7 @@ class MongoAuthAdapter implements Auth
      */
     public function byId($id)
     {
-        return $this->_authenticatedUser = RepoUser::find($id);
+        return $this->authenticatedUser = RepoUser::find($id);
     }
 
     /**
@@ -45,6 +45,6 @@ class MongoAuthAdapter implements Auth
      */
     public function user()
     {
-        return $this->_authenticatedUser;
+        return $this->authenticatedUser;
     }
 }

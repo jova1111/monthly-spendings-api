@@ -6,13 +6,13 @@ use App\Models\Transaction;
 
 interface TransactionService
 {
-    public function create(Transaction $transaction);
+    public function create(Transaction $transaction): Transaction;
 
-    public function get(int $id);
+    public function get(string $id): ?Transaction;
 
-    public function getAll(int $owner_id = null);
+    public function getAll(string $ownerId = null);
 
     public function update(Transaction $transaction);
 
-    public function delete($id);
+    public function delete(string $id);
 }

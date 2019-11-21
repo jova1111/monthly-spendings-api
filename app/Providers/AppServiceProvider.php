@@ -11,6 +11,7 @@ use App\Repositories\Mongo\MongoCategoryRepository;
 use App\Repositories\Mongo\MongoTransactionRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\Contracts\CategoryService;
+use App\Services\Contracts\TransactionService;
 use App\Services\Contracts\UserService;
 use App\Services\DefaultCategoryService;
 use App\Services\DefaultTransactionService;
