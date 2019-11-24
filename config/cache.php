@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'database'),
+    'default' => env('CACHE_DRIVER', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,13 @@ return [
         ],
 
         'database' => [
-            'driver' => 'database',
+            'driver' => 'mongodb',
+            'table' => 'cache',
+            'connection' => 'mongodb',
+        ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
             'table' => 'cache',
             'connection' => null,
         ],

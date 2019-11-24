@@ -147,6 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Alfa6661\Mongodb\Cache\MongoCacheServiceProvider::class,
 
         /*
          * Package Service Providers...
