@@ -2,9 +2,12 @@
 
 namespace App\Repositories\Mongo;
 
+use App\Exceptions\ResourceNotFoundException;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Mongo\Models\User as RepoUser;
+use App\Repositories\Mongo\Utils\MongoMapper;
+use Illuminate\Contracts\Queue\EntityNotFoundException;
 use Illuminate\Support\Facades\Hash;
 
 class MongoUserRepository implements UserRepository
@@ -23,34 +26,42 @@ class MongoUserRepository implements UserRepository
     public function get(string $id): ?User
     {
         $repoUser = RepoUser::find($id);
-        return is_null($repoUser) ? null : $this->mapRepoUserToUser($repoUser);
+        return is_null($repoUser) ? null : MongoMapper::mapRepoUserToUser($repoUser);
     }
 
-    public function getByEmailAndPassword(string $email, string $password): ?User
+    public function getActiveYears(string $id)
     {
-        $repoUser = RepoUser::where(['email' => $email])->first();
-        if (is_null($repoUser) || !Hash::check($password, $repoUser->password)) {
-            return null;
+        $years = array();
+        $user = RepoUser::find($id);
+        if (!$user) {
+            throw new ResourceNotFoundException('User with an id ' . $id . ' not found.');
         }
-        return $this->mapRepoUserToUser($repoUser);
+        $cursor = $user->transactions()->raw(function ($collection) use ($id) {
+            return $collection->aggregate([
+                ['$match' => ['owner_id' => ['$eq' => $id]]],
+                ['$project' => ['year' => ['$year' => '$created_at'], '_id' => 0]],
+                ['$group' => ['_id' => '$year']]
+            ]);
+        });
+        foreach ($cursor as $document) {
+            array_push($years, $document['_id']);
+        }
+        return $years;
     }
 
     public function getAll()
-    { }
+    {
+        $users = array();
+        $repoUsers = RepoUser::all();
+        foreach ($repoUsers as $repoUser) {
+            array_push($users, MongoMapper::mapRepoUserToUser($repoUser));
+        }
+        return $users;
+    }
 
     public function update(User $user)
     { }
 
     public function delete($id)
     { }
-
-    private function mapRepoUserToUser(RepoUser $repoUser)
-    {
-        $user = new User();
-        $user->id = $repoUser->id;
-        $user->setUsername($repoUser->username);
-        $user->setEmail($repoUser->email);
-        $user->setPassword($repoUser->password);
-        return $user;
-    }
 }

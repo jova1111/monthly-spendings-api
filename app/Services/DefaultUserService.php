@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\User;
-use App\Repositories\UserRepository;
-use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Contracts\CategoryRepository;
 use App\Services\Contracts\UserService;
 
 class DefaultUserService implements UserService
@@ -41,9 +41,9 @@ class DefaultUserService implements UserService
         return $this->userRepository->get($id);
     }
 
-    public function getByEmailAndPassword(string $email, string $password): ?User
+    public function getActiveYears(string $id)
     {
-        return $this->userRepository->getByEmailAndPassword($email, $password);
+        return $this->userRepository->getActiveYears($id);
     }
 
     public function getAll()

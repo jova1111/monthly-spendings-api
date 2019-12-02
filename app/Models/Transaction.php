@@ -64,7 +64,7 @@ class Transaction implements JsonSerializable
         return $this->owner;
     }
 
-    public function setCategory(Category $category)
+    public function setCategory(?Category $category)
     {
         $this->category = $category;
     }

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTransactionRequest;
+use App\Http\Requests\DeleteTransactionRequest;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\Contracts\TransactionService;
-use Illuminate\Support\Facades\DB;
+use DateTime;
+use Illuminate\Support\Facades\Response;
 
 class TransactionController extends Controller
 {
@@ -19,24 +21,17 @@ class TransactionController extends Controller
         $this->transactionService = $transactionService;
     }
 
-    function getAllUserTransactions(Request $request)
+    function getUserTransactions(Request $request)
     {
-        return auth()->user()->transactions()->with('transactionCategory')->whereYear('created_at', '=', $request->year)->get();
-    }
-
-    function getAllYears()
-    {
-        return auth()->user()->transactions()->select(DB::raw('DISTINCT YEAR(created_at) as year'))->pluck('year');
-    }
-
-    function getAllByYear(Request $request)
-    {
-        return auth()->user()->transactions()->with('transactionCategory')->whereYear('created_at', '=', $request->year)->get();
-    }
-
-    function showMonth(Request $request)
-    {
-        return auth()->user()->transactions()->with('transactionCategory')->whereMonth('created_at', '=', $request->Month)->whereYear('created_at', '=', $request->Year)->latest()->get();
+        $startDate = null;
+        $endDate = null;
+        if ($request->startDate) {
+            $startDate = new DateTime($request->startDate);
+        }
+        if ($request->endDate) {
+            $endDate = new DateTime($request->endDate);
+        }
+        return $this->transactionService->getAll(auth()->user()->id, $startDate, $endDate);
     }
 
     function create(CreateTransactionRequest $request)
@@ -55,10 +50,10 @@ class TransactionController extends Controller
         return response()->json($this->transactionService->create($transaction), 201);
     }
 
-    function delete($id)
+    function delete(DeleteTransactionRequest $request)
     {
-        $this->transactionService->delete($id);
-        return response()->noContent();
+        $this->transactionService->delete($request['id']);
+        return Response::make("", 204);
     }
 
     public function getTransactionsGroupedByCategoryByYear($year)

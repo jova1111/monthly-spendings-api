@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Mongo;
 
+use App\Exceptions\ResourceNotFoundException;
 use App\Models\Category;
-use App\Models\User;
-use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepository;
 use App\Repositories\Mongo\Models\Category as RepoCategory;
+use App\Repositories\Mongo\Utils\MongoMapper;
 
 class MongoCategoryRepository implements CategoryRepository
 {
@@ -20,27 +21,27 @@ class MongoCategoryRepository implements CategoryRepository
         return $category;
     }
 
-    public function get(string $id = null, string $name = null): ?Category
+    public function get(string $id): ?Category
     {
-        if ($id) {
-            $repoCategory = RepoCategory::find($id);
-        } else {
-            $repoCategory = RepoCategory::where(['name' => $name])->first();
+        $repoCategory = RepoCategory::find($id);
+        if (!$repoCategory) {
+            throw new ResourceNotFoundException('Category with an id ' . $id . ' not found.');
         }
-        return $this->mapRepoCategoryToCategory($repoCategory);
+        return MongoMapper::mapRepoCategoryToCategory($repoCategory);
     }
 
-    public function getAll(string $ownerId = null)
+    public function getAll(string $ownerId = null, string $name = null)
     {
         $categories = array();
-        $repoCategories = null;
+        $repoCategories = RepoCategory::query();
         if ($ownerId) {
-            $repoCategories = RepoCategory::where(['owner_id' => $ownerId])->get();
-        } else {
-            $repoCategories = RepoCategory::all();
+            $repoCategories->where('owner_id', $ownerId);
         }
-        foreach ($repoCategories as $repoCategory) {
-            array_push($categories, $this->mapRepoCategoryToCategory($repoCategory));
+        if ($name) {
+            $repoCategories->where('name', $name);
+        }
+        foreach ($repoCategories->get() as $repoCategory) {
+            array_push($categories, MongoMapper::mapRepoCategoryToCategory($repoCategory));
         }
         return $categories;
     }
@@ -50,22 +51,4 @@ class MongoCategoryRepository implements CategoryRepository
 
     public function delete($id)
     { }
-
-    private function mapRepoCategoryToCategory(?RepoCategory $repoCategory): ?Category
-    {
-        if (is_null($repoCategory)) {
-            return null;
-        }
-        $category = new Category;
-        $category->setName($repoCategory->name);
-        $category->setId($repoCategory->id);
-        $category->setCreationDate($repoCategory->created_at->toDateTimeString());
-
-        $owner = new User;
-        $owner->setId($repoCategory->owner->id);
-        $owner->setEmail($repoCategory->owner->email);
-        $owner->setUsername($repoCategory->owner->username);
-        $category->setOwner($owner);
-        return $category;
-    }
 }

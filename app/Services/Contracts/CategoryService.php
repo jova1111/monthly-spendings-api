@@ -8,9 +8,9 @@ interface CategoryService
 {
     public function create(Category $category): Category;
 
-    public function get(string $id = null, string $name = null): ?Category;
+    public function get(string $id): ?Category;
 
-    public function getAll(string $ownerId = null);
+    public function getAll(string $ownerId = null, string $name = null);
 
     public function update(Category $user);
 

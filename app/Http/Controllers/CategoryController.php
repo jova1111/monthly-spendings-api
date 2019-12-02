@@ -6,7 +6,6 @@ use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use App\Models\User;
 use App\Services\Contracts\CategoryService;
-use App\TransactionCategory;
 
 class CategoryController extends Controller
 {
@@ -25,9 +24,6 @@ class CategoryController extends Controller
 
     public function create(CreateCategoryRequest $request)
     {
-        if ($this->categoryService->get(null, $request['name'])) {
-            return response()->json(['message' => 'Transaction category with given name already exists.'], 409);
-        }
         $owner = new User;
         $owner->setId(auth()->user()->id);
 
@@ -35,5 +31,11 @@ class CategoryController extends Controller
         $category->setName($request['name']);
         $category->setOwner($owner);;
         return response()->json($this->categoryService->create($category), 201);
+    }
+
+    public function delete(DeleteCategoryRequest $request)
+    {
+        $this->categoryService->delete($request['id']);
+        return Response::make("", 204);
     }
 }

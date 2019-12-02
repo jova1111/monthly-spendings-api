@@ -10,7 +10,7 @@ interface UserService
 
     public function get(string $id): ?User;
 
-    public function getByEmailAndPassword(string $email, string $password): ?User;
+    public function getActiveYears(string $id);
 
     public function getAll();
 

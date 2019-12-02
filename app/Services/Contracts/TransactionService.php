@@ -3,6 +3,7 @@
 namespace App\Services\Contracts;
 
 use App\Models\Transaction;
+use DateTime;
 
 interface TransactionService
 {
@@ -10,7 +11,7 @@ interface TransactionService
 
     public function get(string $id): ?Transaction;
 
-    public function getAll(string $ownerId = null);
+    public function getAll(string $ownerId = null, DateTime $startDate = null, DateTime $endDate = null);
 
     public function update(Transaction $transaction);
 

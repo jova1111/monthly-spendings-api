@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Exceptions\ResourceNotFoundException;
 use App\Models\Transaction;
-use App\Repositories\TransactionRepository;
+use App\Repositories\Contracts\TransactionRepository;
 use App\Services\Contracts\TransactionService;
+use DateTime;
 
 class DefaultTransactionService implements TransactionService
 {
@@ -22,21 +24,27 @@ class DefaultTransactionService implements TransactionService
 
     public function get(string $id): ?Transaction
     {
-        return $this->transactionRepository->get($id);
+        $transaction = $this->transactionRepository->get($id);
+        if (!$transaction) {
+            throw new ResourceNotFoundException('Transaction with an id ' . $id . ' not found.');
+        }
+        return $transaction;
     }
 
-    public function getAll(string $ownerId = null)
+    public function getAll(string $ownerId = null, DateTime $startDate = null, DateTime $endDate = null)
     {
-        return $this->transactionRepository->getAll($ownerId);
+        return $this->transactionRepository->getAll($ownerId, $startDate, $endDate);
     }
 
     public function update(Transaction $transaction)
     {
+
         return $this->transactionRepository->update($transaction);
     }
 
     public function delete(string $id)
     {
+        $transaction = $this->get($id);
         return $this->transactionRepository->delete($id);
     }
 }

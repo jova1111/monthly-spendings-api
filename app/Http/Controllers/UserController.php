@@ -8,7 +8,7 @@ use App\Services\Contracts\UserService;
 use Illuminate\Http\Request;
 use JWTAuth;
 
-class AuthenticationController extends Controller
+class UserController extends Controller
 {
     private $userService;
 
@@ -41,5 +41,24 @@ class AuthenticationController extends Controller
         $user->setPassword(bcrypt($request->password));
         $this->userService->create($user);
         return response()->json(['message' => 'User created!'], 201);
+    }
+
+    /**
+     * Returns list of years in which user created transactions
+     */
+    public function getActiveYears($id)
+    {
+        $userId = $id;
+        if ($id == 'me') {
+            $userId = auth()->user()->id;
+        }
+        $activeYears = $this->userService->getActiveYears($userId);
+        return response($activeYears);
+    }
+
+    public function getAll()
+    {
+        $users = $this->userService->getAll();
+        return response($users);
     }
 }

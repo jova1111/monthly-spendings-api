@@ -44,15 +44,15 @@ class User extends Moloquent implements Authenticatable, JWTSubject
 
     public function transactions()
     {
-        return $this->hasMany('App\Repositories\Mongo\Models\Transaction');
+        return $this->hasMany('App\Repositories\Mongo\Models\Transaction', 'owner_id');
     }
 
     public function categories()
     {
-        return $this->hasMany('App\Repositories\Mongo\Models\Category');
+        return $this->hasMany('App\Repositories\Mongo\Models\Category', 'owner_id');
     }
-    public function monthlyMoney()
+    public function plannedMonthlySpendings()
     {
-        return $this->hasMany('App\Repositories\Mongo\Models\MoneyPerMonth');
+        return $this->hasMany('App\Repositories\Mongo\Models\PlannedMonthlySpending', 'owner_id');
     }
 }

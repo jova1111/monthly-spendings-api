@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoneyPerMonthsTable extends Migration
+class CreatePlannedMonthlySpendingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMoneyPerMonthsTable extends Migration
      */
     public function up()
     {
-        Schema::create('money_per_months', function (Blueprint $table) {
+        Schema::create('planned_monthly_spendings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('value');
-            $table->integer('user_id');
+            $table->integer('owner_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateMoneyPerMonthsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('money_per_months');
+        Schema::dropIfExists('planned_monthly_spendings');
     }
 }

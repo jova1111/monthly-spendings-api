@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Exceptions\ResourceConflictException;
 use App\Models\Category;
-use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepository;
 use App\Services\Contracts\CategoryService;
+use Exception;
 
 class DefaultCategoryService implements CategoryService
 {
@@ -17,17 +19,20 @@ class DefaultCategoryService implements CategoryService
 
     public function create(Category $category): Category
     {
+        if ($this->categoryRepository->getAll($category->getOwner()->getId(), $category->getName())) {
+            throw new ResourceConflictException('Transaction category with given name already exists.');
+        }
         return $this->categoryRepository->create($category);
     }
 
-    public function get(string $id = null, string $name = null): ?Category
+    public function get(string $id): ?Category
     {
-        return $this->categoryRepository->get($id, $name);
+        return $this->categoryRepository->get($id);
     }
 
-    public function getAll(string $ownerId = null)
+    public function getAll(string $ownerId = null, string $name = null)
     {
-        return $this->categoryRepository->getAll($ownerId);
+        return $this->categoryRepository->getAll($ownerId, $name);
     }
 
     public function update(Category $user)
