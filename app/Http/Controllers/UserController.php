@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
-use App\Services\Contracts\UserService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use JWTAuth;
 
 class UserController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct()
     {
-        $this->userService = $userService;
+        $this->userService = App::make(UserService::class);
     }
 
     public function authenticate(Request $request)

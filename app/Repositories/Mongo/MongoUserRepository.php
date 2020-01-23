@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Mongo\Models\User as RepoUser;
 use App\Repositories\Mongo\Utils\MongoMapper;
-use Illuminate\Contracts\Queue\EntityNotFoundException;
 use Illuminate\Support\Facades\Hash;
 
 class MongoUserRepository implements UserRepository
@@ -60,8 +59,10 @@ class MongoUserRepository implements UserRepository
     }
 
     public function update(User $user)
-    { }
+    {
+    }
 
     public function delete($id)
-    { }
+    {
+    }
 }

@@ -14,10 +14,12 @@ use App\Repositories\Mongo\MongoPlannedMonthlySpendingRepository;
 use App\Repositories\Mongo\MongoTransactionRepository;
 use App\Services\Contracts\CategoryService;
 use App\Services\Contracts\PlannedMonthlySpendingService;
+use App\Services\Contracts\StatisticService;
 use App\Services\Contracts\TransactionService;
 use App\Services\Contracts\UserService;
 use App\Services\DefaultCategoryService;
 use App\Services\DefaultPlannedMonthlySpendingService;
+use App\Services\DefaultStatisticService;
 use App\Services\DefaultTransactionService;
 use App\Services\DefaultUserService;
 
@@ -28,10 +30,6 @@ class AppServiceProvider extends ServiceProvider
         CategoryRepository::class => MongoCategoryRepository::class,
         TransactionRepository::class => MongoTransactionRepository::class,
         PlannedMonthlySpendingRepository::class => MongoPlannedMonthlySpendingRepository::class,
-        UserService::class => DefaultUserService::class,
-        CategoryService::class => DefaultCategoryService::class,
-        TransactionService::class => DefaultTransactionService::class,
-        PlannedMonthlySpendingService::class => DefaultPlannedMonthlySpendingService::class
     ];
 
     /**

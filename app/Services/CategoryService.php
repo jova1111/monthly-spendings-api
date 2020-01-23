@@ -5,10 +5,8 @@ namespace App\Services;
 use App\Exceptions\ResourceConflictException;
 use App\Models\Category;
 use App\Repositories\Contracts\CategoryRepository;
-use App\Services\Contracts\CategoryService;
-use Exception;
 
-class DefaultCategoryService implements CategoryService
+class CategoryService
 {
     private $categoryRepository;
 
@@ -36,8 +34,10 @@ class DefaultCategoryService implements CategoryService
     }
 
     public function update(Category $user)
-    { }
+    {
+    }
 
     public function delete($id)
-    { }
+    {
+    }
 }

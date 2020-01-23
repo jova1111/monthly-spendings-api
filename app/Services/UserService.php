@@ -6,9 +6,8 @@ use App\Models\Category;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\CategoryRepository;
-use App\Services\Contracts\UserService;
 
-class DefaultUserService implements UserService
+class UserService
 {
     private $userRepository;
     private $categoryRepository;
@@ -25,7 +24,7 @@ class DefaultUserService implements UserService
 
         // create default categories for a new user
         $noCategory = new Category;
-        $noCategory->setName("No category");
+        $noCategory->setName("Other");
         $noCategory->setOwner($newUser);
         $foodCategory = new Category;
         $foodCategory->setName("Food");

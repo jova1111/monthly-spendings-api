@@ -29,7 +29,7 @@ class Transaction implements JsonSerializable
         $this->amount = $amount;
     }
 
-    public function getAmonut()
+    public function getAmount()
     {
         return $this->amount;
     }

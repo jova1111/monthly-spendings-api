@@ -6,18 +6,18 @@ use App\Http\Requests\CreatePlannedMonthlySpendingRequest;
 use App\Http\Requests\UpdatePlannedMonthlySpendingRequest;
 use App\Models\PlannedMonthlySpending;
 use App\Models\User;
-use App\Services\Contracts\PlannedMonthlySpendingService;
+use App\Services\PlannedMonthlySpendingService;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\App;
 
 class PlannedMonthlySpendingController extends Controller
 {
     private $plannedMonthlySpendingService;
 
-    public function __construct(PlannedMonthlySpendingService $plannedMonthlySpendingService)
+    public function __construct()
     {
-        $this->plannedMonthlySpendingService = $plannedMonthlySpendingService;
+        $this->plannedMonthlySpendingService = App::make(PlannedMonthlySpendingService::class);
     }
 
     public function create(CreatePlannedMonthlySpendingRequest $request)
@@ -53,7 +53,6 @@ class PlannedMonthlySpendingController extends Controller
         $plannedMonthlySpending->setId($request['id']);
         $plannedMonthlySpending->setValue($request['value']);
         $plannedMonthlySpending->setOwner($owner);
-        $this->plannedMonthlySpendingService->update($plannedMonthlySpending);
-        return Response::make("", 204);
+        return response()->json($this->plannedMonthlySpendingService->update($plannedMonthlySpending));
     }
 }

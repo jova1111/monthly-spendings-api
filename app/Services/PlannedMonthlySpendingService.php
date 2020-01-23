@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Exceptions\ResourceConflictException;
+use App\Exceptions\ResourceNotFoundException;
 use App\Models\PlannedMonthlySpending;
 use App\Repositories\Contracts\PlannedMonthlySpendingRepository;
-use App\Services\Contracts\PlannedMonthlySpendingService;
 use DateTime;
 
-class DefaultPlannedMonthlySpendingService implements PlannedMonthlySpendingService
+class PlannedMonthlySpendingService
 {
     private $plannedMonthlySpendingRepository;
 
@@ -45,12 +45,14 @@ class DefaultPlannedMonthlySpendingService implements PlannedMonthlySpendingServ
         return $this->plannedMonthlySpendingRepository->getAll($ownerId, $startDate, $endDate);
     }
 
-    public function update(PlannedMonthlySpending $plannedMonthlySpending)
+    public function update(PlannedMonthlySpending $plannedMonthlySpending): PlannedMonthlySpending
     {
+        // if it doesn't exists, exception will be thrown
         $oldPlannedMonthlySpending = $this->get($plannedMonthlySpending->getId());
         return $this->plannedMonthlySpendingRepository->update($plannedMonthlySpending);
     }
 
     public function delete(string $id)
-    { }
+    {
+    }
 }

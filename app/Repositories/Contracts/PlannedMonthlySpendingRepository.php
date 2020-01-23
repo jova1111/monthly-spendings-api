@@ -13,7 +13,7 @@ interface PlannedMonthlySpendingRepository
 
     public function getAll(string $ownerId = null, DateTime $startDate = null, DateTime $endDate = null);
 
-    public function update(PlannedMonthlySpending $plannedMonthlySpending);
+    public function update(PlannedMonthlySpending $plannedMonthlySpending): PlannedMonthlySpending;
 
     public function delete(string $id);
 }

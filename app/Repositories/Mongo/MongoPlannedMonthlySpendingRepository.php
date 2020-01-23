@@ -45,12 +45,14 @@ class MongoPlannedMonthlySpendingRepository implements PlannedMonthlySpendingRep
         return $plannedSpendings;
     }
 
-    public function update(PlannedMonthlySpending $plannedMonthlySpending)
+    public function update(PlannedMonthlySpending $plannedMonthlySpending): PlannedMonthlySpending
     {
         $repoPlannedMonthlySpending = RepoPlannedMonthlySpending::find($plannedMonthlySpending->getId());
         $repoPlannedMonthlySpending->update(['value' => $plannedMonthlySpending->getValue()]);
+        return MongoMapper::mapRepoPlannedMonthlySpendingToPlannedMonthlySpending($repoPlannedMonthlySpending);
     }
 
     public function delete(string $id)
-    { }
+    {
+    }
 }

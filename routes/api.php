@@ -27,5 +27,7 @@ Route::patch('/planned-monthly-spendings/{id}', 'PlannedMonthlySpendingControlle
 
 Route::post('/register', 'UserController@create');
 Route::post('/login', 'UserController@authenticate');
-ROute::get('/users', 'UserController@getAll')->middleware('jwt.auth');
+Route::get('/users', 'UserController@getAll')->middleware('jwt.auth');
 Route::get('/users/{id}/active-years', 'UserController@getActiveYears')->middleware('jwt.auth');
+
+Route::get('/statistics/{year}', 'StatisticController@getMonthlySpendingsByCategory')->middleware('jwt.auth');

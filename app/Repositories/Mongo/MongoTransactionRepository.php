@@ -14,13 +14,14 @@ class MongoTransactionRepository implements TransactionRepository
     {
         $newTransaction = new RepoTransaction;
         $newTransaction->description = $transaction->getDescription();
-        $newTransaction->amount = $transaction->getAmonut();
+        $newTransaction->amount = $transaction->getAmount();
         $newTransaction->category_id = $transaction->getCategory()->getId();
         $newTransaction->owner_id = $transaction->getOwner()->getId();
         $newTransaction->save();
 
         $transaction->setId($newTransaction->id);
         $transaction->setCreationDate($newTransaction->created_at->toDateTimeString());
+        $transaction->setCategory(MongoMapper::mapRepoCategoryToCategory($newTransaction->category));
         return $transaction;
     }
 
@@ -50,7 +51,8 @@ class MongoTransactionRepository implements TransactionRepository
     }
 
     public function update(Transaction $transaction)
-    { }
+    {
+    }
 
     public function delete(string $id)
     {

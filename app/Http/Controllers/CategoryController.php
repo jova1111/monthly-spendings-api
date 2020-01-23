@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use App\Models\User;
-use App\Services\Contracts\CategoryService;
+use App\Services\CategoryService;
+use Illuminate\Support\Facades\App;
 
 class CategoryController extends Controller
 {
     private $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct()
     {
-        $this->categoryService = $categoryService;
+        $this->categoryService = App::make(CategoryService::class);
     }
 
     public function getAllUserCategories()

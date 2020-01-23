@@ -8,30 +8,32 @@ use App\Http\Requests\DeleteTransactionRequest;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Services\Contracts\TransactionService;
+use App\Services\TransactionService;
 use DateTime;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 
 class TransactionController extends Controller
 {
     private $transactionService;
 
-    public function __construct(TransactionService $transactionService)
+    public function __construct()
     {
-        $this->transactionService = $transactionService;
+        $this->transactionService = App::make(TransactionService::class);
     }
 
     function getUserTransactions(Request $request)
     {
         $startDate = null;
         $endDate = null;
+        $groupBy = $request->groupBy;
         if ($request->startDate) {
             $startDate = new DateTime($request->startDate);
         }
         if ($request->endDate) {
             $endDate = new DateTime($request->endDate);
         }
-        return $this->transactionService->getAll(auth()->user()->id, $startDate, $endDate);
+        return $this->transactionService->getAll(auth()->user()->id, $startDate, $endDate, $groupBy);
     }
 
     function create(CreateTransactionRequest $request)
@@ -54,18 +56,5 @@ class TransactionController extends Controller
     {
         $this->transactionService->delete($request['id']);
         return Response::make("", 204);
-    }
-
-    public function getTransactionsGroupedByCategoryByYear($year)
-    {
-        return auth()
-            ->user()
-            ->transactions()
-            ->whereYear('created_at', '=', $year)
-            ->get()
-            ->makeHidden('transactionCategory')
-            ->groupBy(function ($d) {
-                return $d->transactionCategory->name;
-            });
     }
 }
