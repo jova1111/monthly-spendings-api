@@ -32,9 +32,6 @@ class MongoUserRepository implements UserRepository
     {
         $years = array();
         $user = RepoUser::find($id);
-        if (!$user) {
-            throw new ResourceNotFoundException('User with an id ' . $id . ' not found.');
-        }
         $cursor = $user->transactions()->raw(function ($collection) use ($id) {
             return $collection->aggregate([
                 ['$match' => ['owner_id' => ['$eq' => $id]]],

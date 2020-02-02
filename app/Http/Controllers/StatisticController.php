@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\StatisticService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class StatisticController extends Controller
@@ -15,8 +16,13 @@ class StatisticController extends Controller
         $this->statisticService = App::make(StatisticService::class);
     }
 
-    public function getMonthlySpendingsByCategory($year)
+    public function getMonthlySpendingsByCategory(Request $request)
     {
-        return response()->json($this->statisticService->getMonthlySpendingsByCategory(auth()->user()->id, $year));
+        return response()->json($this->statisticService->getMonthlySpendingsByCategory(auth()->user()->id, $request['year']));
+    }
+
+    public function getAverageSpendingsOfOtherUsers(Request $request)
+    {
+        return response()->json($this->statisticService->getAverageSpendingsOfOtherUsers(auth()->user()->id, $request['year']));
     }
 }

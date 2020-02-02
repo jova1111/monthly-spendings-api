@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Contracts\CategoryService;
+use App\Services\CategoryService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 
 class DeleteCategoryRequest extends FormRequest
 {
     private $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct()
     {
-        $this->categoryService = $categoryService;
+        $this->categoryService = App::make(CategoryService::class);
     }
     /**
      * Determine if the user is authorized to make this request.

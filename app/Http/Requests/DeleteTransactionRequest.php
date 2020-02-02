@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Contracts\TransactionService;
+use App\Services\TransactionService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 
 class DeleteTransactionRequest extends FormRequest
 {
     private $transactionService;
 
-    public function __construct(TransactionService $transactionService)
+    public function __construct()
     {
-        $this->transactionService = $transactionService;
+        $this->transactionService = App::make(TransactionService::class);;
     }
     /**
      * Determine if the user is authorized to make this request.

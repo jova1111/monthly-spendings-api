@@ -12,4 +12,5 @@ interface TransactionRepository
     public function getAll(string $ownerId = null, DateTime $startDate = null, DateTime $endDate = null);
     public function update(Transaction $transaction);
     public function delete(string $id);
+    public function getAverageSpendingsOfOtherUsers($userId);
 }

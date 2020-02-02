@@ -14,11 +14,16 @@ class StatisticService
         $this->transactionRepository = $transactionRepository;
     }
 
-    public function getMonthlySpendingsByCategory(string $userId, int $year)
+    public function getMonthlySpendingsByCategory(string $userId, int $year = null)
     {
-        $startDate = new DateTime('first day of january ' . $year);
-        $endDate = new DateTime('last day of december ' . $year);
-        $transactions = $this->transactionRepository->getAll($userId, $startDate, $endDate);
+        $transactions = null;
+        if ($year) {
+            $startDate = new DateTime('first day of january ' . $year);
+            $endDate = new DateTime('last day of december ' . $year);
+            $transactions = $this->transactionRepository->getAll($userId, $startDate, $endDate);
+        } else {
+            $transactions = $this->transactionRepository->getAll($userId);
+        }
 
         // group by category name
         $groupedTransactions = array();
@@ -43,5 +48,26 @@ class StatisticService
         }
 
         return $groupedTransactions;
+    }
+
+    public function getAverageSpendingsOfOtherUsers($userId, $year = null)
+    {
+        if ($year) {
+            $startDate = new DateTime('first day of january ' . $year);
+            $endDate = new DateTime('last day of december ' . $year);
+            $allTransactions = $this->transactionRepository->getAll(null, $startDate, $endDate);
+            $filteredTransactions = array_filter($allTransactions, function ($transaction) use ($userId) {
+                return $transaction->getOwner()->getId() != $userId;
+            });
+            if (count($filteredTransactions) == 0) {
+                return 0;
+            }
+            $sum = array_reduce($filteredTransactions, function ($carry, $transaction) {
+                return $carry + $transaction->getAmount();
+            });
+
+            return $sum / count($filteredTransactions);
+        }
+        return $this->transactionRepository->getAverageSpendingsOfOtherUsers($userId);
     }
 }

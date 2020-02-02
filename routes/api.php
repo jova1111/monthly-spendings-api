@@ -20,6 +20,7 @@ Route::get('/transaction/year/{year}/category_groups', 'TransactionController@ge
 
 Route::post('/categories', 'CategoryController@create')->middleware('jwt.auth');
 Route::get('/categories', 'CategoryController@getAllUserCategories')->middleware('jwt.auth');
+Route::delete('/categories/{id}', 'CategoryController@delete')->middleware('jwt.auth');
 
 Route::post('/planned-monthly-spendings', 'PlannedMonthlySpendingController@create')->middleware('jwt.auth');
 Route::get('/planned-monthly-spendings', 'PlannedMonthlySpendingController@getUserPlannedMonthlySpendings')->middleware('jwt.auth');
@@ -30,4 +31,5 @@ Route::post('/login', 'UserController@authenticate');
 Route::get('/users', 'UserController@getAll')->middleware('jwt.auth');
 Route::get('/users/{id}/active-years', 'UserController@getActiveYears')->middleware('jwt.auth');
 
-Route::get('/statistics/{year}', 'StatisticController@getMonthlySpendingsByCategory')->middleware('jwt.auth');
+Route::get('/statistics/spendings-by-category', 'StatisticController@getMonthlySpendingsByCategory')->middleware('jwt.auth');
+Route::get('/statistics/other-users-spendings', 'StatisticController@getAverageSpendingsOfOtherUsers')->middleware('jwt.auth');

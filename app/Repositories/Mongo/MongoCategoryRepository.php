@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Mongo;
 
+use App\Constants\CategoryConstants;
+use App\Exceptions\ResourceConflictException;
 use App\Exceptions\ResourceNotFoundException;
 use App\Models\Category;
 use App\Repositories\Contracts\CategoryRepository;
@@ -24,9 +26,6 @@ class MongoCategoryRepository implements CategoryRepository
     public function get(string $id): ?Category
     {
         $repoCategory = RepoCategory::find($id);
-        if (!$repoCategory) {
-            throw new ResourceNotFoundException('Category with an id ' . $id . ' not found.');
-        }
         return MongoMapper::mapRepoCategoryToCategory($repoCategory);
     }
 
@@ -47,8 +46,11 @@ class MongoCategoryRepository implements CategoryRepository
     }
 
     public function update(Category $user)
-    { }
+    {
+    }
 
-    public function delete($id)
-    { }
+    public function delete(string $id)
+    {
+        RepoCategory::destroy($id);
+    }
 }

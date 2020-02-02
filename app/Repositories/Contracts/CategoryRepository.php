@@ -10,5 +10,5 @@ interface CategoryRepository
     public function get(string $id): ?Category;
     public function getAll(string $ownerId = null, string $name = null);
     public function update(Category $category);
-    public function delete($id);
+    public function delete(string $id);
 }

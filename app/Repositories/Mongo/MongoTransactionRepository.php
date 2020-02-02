@@ -52,10 +52,21 @@ class MongoTransactionRepository implements TransactionRepository
 
     public function update(Transaction $transaction)
     {
+        $repoTransaction = RepoTransaction::find($transaction->getId());
+        $repoTransaction->category_id = $transaction->getCategory()->getId();
+        $repoTransaction->amount = $transaction->getAmount();
+        $repoTransaction->description = $transaction->getDescription();
+        $repoTransaction->save();
+        return MongoMapper::mapRepoTransactionToTransaction($repoTransaction);
     }
 
     public function delete(string $id)
     {
         RepoTransaction::destroy($id);
+    }
+
+    public function getAverageSpendingsOfOtherUsers($userId)
+    {
+        return RepoTransaction::where('owner_id', '!=', $userId)->avg('amount');
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests;
 
-use App\Services\Contracts\PlannedMonthlySpendingService;
+use App\Services\PlannedMonthlySpendingService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 
 class UpdatePlannedMonthlySpendingRequest extends FormRequest
 {
     private $plannedMonthlySpendingService;
 
-    public function __construct(PlannedMonthlySpendingService $plannedMonthlySpendingService)
+    public function __construct()
     {
-        $this->plannedMonthlySpendingService = $plannedMonthlySpendingService;
+        $this->plannedMonthlySpendingService = App::make(PlannedMonthlySpendingService::class);;
     }
     /**
      * Determine if the user is authorized to make this request.

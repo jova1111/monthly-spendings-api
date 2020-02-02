@@ -21,8 +21,10 @@ class TransactionService
 
     public function create(Transaction $transaction): Transaction
     {
-        // this will throw exception if category is not found
-        $this->categoryRepository->get($transaction->getCategory()->getId());
+        $category = $this->categoryRepository->get($transaction->getCategory()->getId());
+        if (!$category) {
+            throw new ResourceNotFoundException('Category with an id ' . $id . ' not found. Cannot create transaction.');
+        }
         return $this->transactionRepository->create($transaction);
     }
 

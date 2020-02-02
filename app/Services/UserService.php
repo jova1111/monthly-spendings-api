@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Constants\CategoryConstants;
+use App\Exceptions\ResourceNotFoundException;
 use App\Models\Category;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
@@ -22,16 +24,12 @@ class UserService
     {
         $newUser = $this->userRepository->create($user);
 
-        // create default categories for a new user
+        // create default category for a new user
         $noCategory = new Category;
-        $noCategory->setName("Other");
+        $noCategory->setName(CategoryConstants::DEFAULT_CATEGORY_NAME);
         $noCategory->setOwner($newUser);
-        $foodCategory = new Category;
-        $foodCategory->setName("Food");
-        $foodCategory->setOwner($newUser);
 
         $this->categoryRepository->create($noCategory);
-        $this->categoryRepository->create($foodCategory);
         return $newUser;
     }
 
@@ -42,6 +40,10 @@ class UserService
 
     public function getActiveYears(string $id)
     {
+        $user = $this->userRepository->get($id);
+        if (!$user) {
+            throw new ResourceNotFoundException('User with an id ' . $id . ' not found.');
+        }
         return $this->userRepository->getActiveYears($id);
     }
 
