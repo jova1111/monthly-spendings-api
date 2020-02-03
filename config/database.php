@@ -1,10 +1,10 @@
 <?php
 
 $url = parse_url(getenv("DATABASE_URL"));
-$host = $url["host"]??null;
-$username = $url["user"]??null;
-$password = $url["pass"]??null;
-$database = substr($url["path"], 1)??null;
+$host = $url["host"] ?? null;
+$username = $url["user"] ?? null;
+$password = $url["pass"] ?? null;
+$database = substr($url["path"], 1) ?? null;
 
 return [
 
@@ -19,7 +19,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mongodb'),
+    'default' => env('DB_CONNECTION', 'mongodb_production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,6 +94,18 @@ return [
             'driver'   => 'mongodb',
             'host'     => env('DB_HOST', 'localhost'),
             'port'     => env('DB_PORT', 27017),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'options'  => [
+                'database' => 'admin' // sets the authentication database required by mongo 3
+            ]
+        ],
+        'mongodb_production' => [
+            'driver'   => 'mongodb',
+            'host'     => env('DB_HOST', 'cluster0-vori8.mongodb.net'),
+            'port'     => env('DB_PORT', 27017),
+            'dsn'      => 'mongodb://monthly-spendings-user:<password>@cluster0-shard-00-00-vori8.mongodb.net:27017,cluster0-shard-00-01-vori8.mongodb.net:27017,cluster0-shard-00-02-vori8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majorityCop',
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),

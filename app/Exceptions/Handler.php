@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -60,6 +61,8 @@ class Handler extends ExceptionHandler
             return response()->json(['message' => 'User does not have permissions to execute given action.'], 403);
         } else if ($exception instanceof ResourceConflictException) {
             return response()->json(['message' => $exception->getMessage()], 409);
+        } else if ($exception instanceof ValidationException) {
+            return response()->json(['message' => $exception->getMessage()], 422);
         }
         return response()->json(['message' => $exception->getMessage()], 500);
     }

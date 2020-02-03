@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\LoginUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class UserController extends Controller
         $this->userService = App::make(UserService::class);
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(LoginUserRequest $request)
     {
         // handle exceptions in middleware (TokenExpiredException)
         $credentials = $request->only('email', 'password');

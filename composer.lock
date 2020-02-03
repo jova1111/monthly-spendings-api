@@ -8,20 +8,20 @@
     "packages": [
         {
             "name": "alfa6661/laravel-mongodb-cache",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alfa6661/laravel-mongodb-cache.git",
-                "reference": "b8a74c82e61d4e9f51af784ec7dd413f6fe91453"
+                "reference": "f6c4810798dd823101b13455e283ce19b1d23934"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alfa6661/laravel-mongodb-cache/zipball/b8a74c82e61d4e9f51af784ec7dd413f6fe91453",
-                "reference": "b8a74c82e61d4e9f51af784ec7dd413f6fe91453",
+                "url": "https://api.github.com/repos/alfa6661/laravel-mongodb-cache/zipball/f6c4810798dd823101b13455e283ce19b1d23934",
+                "reference": "f6c4810798dd823101b13455e283ce19b1d23934",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "~5.5",
+                "illuminate/cache": "^5.5|^6.0",
                 "jenssegers/mongodb": "*",
                 "php": ">=7.0.0"
             },
@@ -49,7 +49,7 @@
                 }
             ],
             "description": "A MongoDB cache driver for Laravel",
-            "time": "2017-12-07T06:34:09+00:00"
+            "time": "2020-01-01T22:54:39+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -108,12 +108,12 @@
             "version": "v0.11.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/barryvdh/laravel-cors.git",
+                "url": "https://github.com/fruitcake/laravel-cors.git",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "shasum": ""
             },
