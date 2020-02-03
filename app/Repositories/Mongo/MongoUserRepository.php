@@ -18,7 +18,7 @@ class MongoUserRepository implements UserRepository
         $newUser->password = Hash::make($user->getPassword());
         $newUser->email = $user->getEmail();
         $newUser->save();
-        $user->id($newUser->id);
+        $user->setId($newUser->id);
         return $user;
     }
 
