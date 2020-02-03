@@ -48,7 +48,6 @@ class MongoMapper
         }
         $user = new User;
         $user->setId($repoUser->id);
-        $user->setUsername($repoUser->username);
         $user->setEmail($repoUser->email);
         $user->setPassword($repoUser->password);
         return $user;
