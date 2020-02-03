@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
 use JWTAuth;
 
 class UserController extends Controller
@@ -40,7 +41,7 @@ class UserController extends Controller
         $user = new User;
         $user->setUsername($request->username);
         $user->setEmail($request->email);
-        $user->setPassword(bcrypt($request->password));
+        $user->setPassword($request->password);
         $this->userService->create($user);
         return response()->json(['message' => 'User created!'], 201);
     }
