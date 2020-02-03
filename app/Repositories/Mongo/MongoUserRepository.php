@@ -14,7 +14,6 @@ class MongoUserRepository implements UserRepository
     public function create(User $user): User
     {
         $newUser = new RepoUser;
-        $newUser->username = $user->getUsername();
         $newUser->password = Hash::make($user->getPassword());
         $newUser->email = $user->getEmail();
         $newUser->save();

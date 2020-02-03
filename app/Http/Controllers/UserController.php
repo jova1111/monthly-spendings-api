@@ -39,7 +39,6 @@ class UserController extends Controller
     public function create(CreateUserRequest $request)
     {
         $user = new User;
-        $user->setUsername($request->username);
         $user->setEmail($request->email);
         $user->setPassword($request->password);
         $this->userService->create($user);

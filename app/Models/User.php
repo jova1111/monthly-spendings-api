@@ -8,7 +8,6 @@ use JsonSerializable;
 class User implements JsonSerializable
 {
     private $id;
-    private $username;
     private $email;
     private $password;
     private $categories = array();
@@ -21,16 +20,6 @@ class User implements JsonSerializable
     public function getId()
     {
         return $this->id;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     public function setEmail(string $email)

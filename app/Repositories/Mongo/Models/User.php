@@ -21,7 +21,7 @@ class User extends Moloquent implements Authenticatable, JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password',
     ];
 
     /**
