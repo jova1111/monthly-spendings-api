@@ -62,8 +62,9 @@ class Handler extends ExceptionHandler
         } else if ($exception instanceof ResourceConflictException) {
             return response()->json(['message' => $exception->getMessage()], 409);
         } else if ($exception instanceof ValidationException) {
-            $errors = $exception->errors();
-            return response()->json(['message' => reset($errors)], 422);
+            $allErrors = $exception->errors();
+            $firstError = reset($allErrors);
+            return response()->json(['message' => reset($firstError)], 422);
         }
         return response()->json(['message' => $exception->getMessage()], 500);
     }
