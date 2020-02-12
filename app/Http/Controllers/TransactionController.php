@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTransactionRequest;
 use App\Http\Requests\DeleteTransactionRequest;
+use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
@@ -56,5 +57,22 @@ class TransactionController extends Controller
     {
         $this->transactionService->delete($request['id']);
         return Response::make("", 204);
+    }
+
+    function update(UpdateTransactionRequest $request)
+    {
+        $owner = new User;
+        $owner->setId(auth()->user()->id);
+
+        $category = new Category;
+        $category->setId($request['category']['id']);
+
+        $transaction = new Transaction;
+        $transaction->setId($request['id']);
+        $transaction->setDescription($request['description']);
+        $transaction->setAmount($request['amount']);
+        $transaction->setCategory($category);
+        $transaction->setOwner($owner);
+        return response()->json($this->transactionService->update($transaction));
     }
 }

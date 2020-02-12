@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/transactions', 'TransactionController@getUserTransactions')->middleware('jwt.auth');
 Route::post('/transactions', 'TransactionController@create')->middleware('jwt.auth');
 Route::delete('/transactions/{id}', 'TransactionController@delete')->middleware('jwt.auth');
+Route::patch('/transactions/{id}', 'TransactionController@update')->middleware('jwt.auth');
 Route::get('/transaction/year/{year}/category_groups', 'TransactionController@getTransactionsGroupedByCategoryByYear')->middleware('jwt.auth');
 
 Route::post('/categories', 'CategoryController@create')->middleware('jwt.auth');

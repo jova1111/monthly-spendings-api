@@ -50,7 +50,7 @@ class MongoTransactionRepository implements TransactionRepository
         return $transactions;
     }
 
-    public function update(Transaction $transaction)
+    public function update(Transaction $transaction): ?Transaction
     {
         $repoTransaction = RepoTransaction::find($transaction->getId());
         $repoTransaction->category_id = $transaction->getCategory()->getId();

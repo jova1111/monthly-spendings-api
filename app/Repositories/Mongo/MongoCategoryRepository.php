@@ -2,9 +2,6 @@
 
 namespace App\Repositories\Mongo;
 
-use App\Constants\CategoryConstants;
-use App\Exceptions\ResourceConflictException;
-use App\Exceptions\ResourceNotFoundException;
 use App\Models\Category;
 use App\Repositories\Contracts\CategoryRepository;
 use App\Repositories\Mongo\Models\Category as RepoCategory;

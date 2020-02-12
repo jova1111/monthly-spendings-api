@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constants\CategoryConstants;
+use App\Exceptions\ResourceConflictException;
 use App\Exceptions\ResourceNotFoundException;
 use App\Models\Category;
 use App\Models\User;
@@ -22,6 +23,10 @@ class UserService
 
     public function create(User $user): User
     {
+        if ($this->userRepository->getByEmail($user->getEmail())) {
+            throw new ResourceConflictException('User with given email is already registered.');
+        }
+
         $newUser = $this->userRepository->create($user);
 
         // create default category for a new user

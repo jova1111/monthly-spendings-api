@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Mongo;
 
-use App\Exceptions\ResourceNotFoundException;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Mongo\Models\User as RepoUser;
@@ -24,7 +23,13 @@ class MongoUserRepository implements UserRepository
     public function get(string $id): ?User
     {
         $repoUser = RepoUser::find($id);
-        return is_null($repoUser) ? null : MongoMapper::mapRepoUserToUser($repoUser);
+        return MongoMapper::mapRepoUserToUser($repoUser);
+    }
+
+    public function getByEmail(string $email): ?User
+    {
+        $repoUser = RepoUser::where('email', $email)->first();
+        return MongoMapper::mapRepoUserToUser($repoUser);
     }
 
     public function getActiveYears(string $id)
