@@ -36,7 +36,7 @@ class UpdatePlannedMonthlySpendingRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|numeric'
+            'value' => 'required|numeric|min:0'
         ];
     }
 }

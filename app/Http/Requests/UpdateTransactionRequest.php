@@ -37,7 +37,7 @@ class UpdateTransactionRequest extends FormRequest
     {
         return [
             'description' => 'required|max:255',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:0',
             'category.id' => 'required'
         ];
     }
