@@ -25,7 +25,7 @@ class CreateTransactionRequest extends FormRequest
     {
         return [
             'description' => 'required|max:255',
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0|max:1000000000',
             'category.id' => 'required'
         ];
     }
