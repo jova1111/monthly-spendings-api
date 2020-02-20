@@ -31,7 +31,7 @@ class UserController extends Controller
         $expirationTime = $payload['exp'];
         $tokenResponse = [
             'token' => $token,
-            'expires_in' => $expirationTime,
+            'expiresIn' => $expirationTime,
         ];
         return response($tokenResponse);
     }

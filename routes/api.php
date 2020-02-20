@@ -33,4 +33,5 @@ Route::get('/users', 'UserController@getAll')->middleware('jwt.auth');
 Route::get('/users/{id}/active-years', 'UserController@getActiveYears')->middleware('jwt.auth');
 
 Route::get('/statistics/spendings-by-category', 'StatisticController@getMonthlySpendingsByCategory')->middleware('jwt.auth');
+Route::get('/statistics/average-by-month', 'StatisticController@getAverageMonthlySpendingsByUsers')->middleware('jwt.auth');
 Route::get('/statistics/other-users-spendings', 'StatisticController@getAverageSpendingsOfOtherUsers')->middleware('jwt.auth');

@@ -25,4 +25,9 @@ class StatisticController extends Controller
     {
         return response()->json($this->statisticService->getAverageSpendingsOfOtherUsers(auth()->user()->id, $request['year']));
     }
+
+    public function getAverageMonthlySpendingsByUsers(Request $request)
+    {
+        return response()->json($this->statisticService->getAverageMonthlySpendingsByUsers(auth()->user()->id, $request['year']));
+    }
 }

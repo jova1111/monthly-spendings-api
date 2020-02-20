@@ -70,4 +70,50 @@ class StatisticService
         }
         return $this->transactionRepository->getAverageSpendingsOfOtherUsers($userId);
     }
+
+    public function getAverageMonthlySpendingsByUsers(string $userId, int $year = null)
+    {
+        $transactions = null;
+        if ($year) {
+            $startDate = new DateTime('first day of january ' . $year);
+            $endDate = new DateTime('last day of december ' . $year);
+            $transactions = $this->transactionRepository->getAll(null, $startDate, $endDate);
+        } else {
+            $transactions = $this->transactionRepository->getAll();
+        }
+        $userMonthlyTransactions = array();
+        $otherUsersMonthlyTransactions = array();
+        foreach ($transactions as $transaction) {
+            if ($transaction->getOwner()->getId() == $userId) {
+                $userMonthlyTransactions[date('n', strtotime($transaction->getCreationDate()))][] = $transaction;
+            } else {
+                $otherUsersMonthlyTransactions[date('n', strtotime($transaction->getCreationDate()))][] = $transaction;
+            }
+        }
+
+        // get total monthly spendings by user
+        $totalUserSpendingsByMonth = array();
+        foreach (array_keys($userMonthlyTransactions) as $monthKey) {
+            $sum = 0;
+            foreach ($userMonthlyTransactions[$monthKey] as $transactionByMonth) {
+                $sum += $transactionByMonth->getAmount();
+            }
+            $totalUserSpendingsByMonth[$monthKey] = $sum;
+        }
+
+        // get average monthly spendings by other users
+        $otherUsersAverageSpendingsByMonth = array();
+        foreach (array_keys($otherUsersMonthlyTransactions) as $monthKey) {
+            $sum = 0;
+            foreach ($otherUsersMonthlyTransactions[$monthKey] as $transactionByMonth) {
+                $sum += $transactionByMonth->getAmount();
+            }
+            $otherUsersAverageSpendingsByMonth[$monthKey] = count($otherUsersMonthlyTransactions[$monthKey]) > 0 ? $sum / count($otherUsersMonthlyTransactions[$monthKey]) : 0;
+        }
+
+        return [
+            'userTotalMonthlySpendings' => $totalUserSpendingsByMonth,
+            'otherUsersAverageMonthlySpendings' => $otherUsersAverageSpendingsByMonth
+        ];
+    }
 }
