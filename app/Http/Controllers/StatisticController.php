@@ -13,6 +13,7 @@ class StatisticController extends Controller
 
     public function __construct()
     {
+        ini_set('max_execution_time', 180); //3 minutes
         $this->statisticService = App::make(StatisticService::class);
     }
 
