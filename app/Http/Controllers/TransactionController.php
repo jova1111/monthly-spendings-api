@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\TransactionService;
 use DateTime;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
 
 class TransactionController extends Controller
@@ -25,6 +26,10 @@ class TransactionController extends Controller
 
     function getUserTransactions(Request $request)
     {
+        $cacheId = 'transactions' . auth()->user()->id;
+        if ($request->cached == 'true' && Cache::has($cacheId)) {
+            return response()->json(Cache::get($cacheId));
+        }
         $startDate = null;
         $endDate = null;
         $groupBy = $request->groupBy;
@@ -34,7 +39,11 @@ class TransactionController extends Controller
         if ($request->endDate) {
             $endDate = new DateTime($request->endDate);
         }
-        return $this->transactionService->getAll(auth()->user()->id, $startDate, $endDate, $groupBy);
+        $transactions = $this->transactionService->getAll(auth()->user()->id, $startDate, $endDate, $groupBy);
+        if ($request->cached == 'true') {
+            Cache::put($cacheId, $transactions, 60);
+        }
+        return $transactions;
     }
 
     function create(CreateTransactionRequest $request)

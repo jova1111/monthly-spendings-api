@@ -2429,6 +2429,7 @@
         },
         {
             "name": "symfony/http-foundation",
+<<<<<<< HEAD
             "version": "v4.4.0",
             "source": {
                 "type": "git",
@@ -2439,6 +2440,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/502040dd2b0cf0a292defeb6145f4d7a4753c99c",
                 "reference": "502040dd2b0cf0a292defeb6145f4d7a4753c99c",
+=======
+            "version": "v4.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-foundation.git",
+                "reference": "2ae778ff4a1f8baba7724db1ca977ada3b796749"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/2ae778ff4a1f8baba7724db1ca977ada3b796749",
+                "reference": "2ae778ff4a1f8baba7724db1ca977ada3b796749",
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
                 "shasum": ""
             },
             "require": {
@@ -2453,7 +2466,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< HEAD
                     "dev-master": "4.4-dev"
+=======
+                    "dev-master": "4.2-dev"
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
                 }
             },
             "autoload": {
@@ -2480,7 +2497,11 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2019-11-17T10:10:42+00:00"
+=======
+            "time": "2019-11-11T12:54:47+00:00"
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
         },
         {
             "name": "symfony/http-kernel",
@@ -2815,6 +2836,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
+<<<<<<< HEAD
             "version": "v1.12.0",
             "source": {
                 "type": "git",
@@ -2825,6 +2847,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/b42a2f66e8f1b15ccf25652c3424265923eb4f17",
                 "reference": "b42a2f66e8f1b15ccf25652c3424265923eb4f17",
+=======
+            "version": "v1.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
                 "shasum": ""
             },
             "require": {
@@ -2836,7 +2870,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< HEAD
                     "dev-master": "1.12-dev"
+=======
+                    "dev-master": "1.13-dev"
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
                 }
             },
             "autoload": {
@@ -2870,7 +2908,11 @@
                 "portable",
                 "shim"
             ],
+<<<<<<< HEAD
             "time": "2019-08-06T08:03:45+00:00"
+=======
+            "time": "2019-11-27T14:18:11+00:00"
+>>>>>>> 93f6a84dc1e3bef0597849f204ca9a08634b9e12
         },
         {
             "name": "symfony/polyfill-php56",
