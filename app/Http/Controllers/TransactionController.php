@@ -26,7 +26,7 @@ class TransactionController extends Controller
 
     function getUserTransactions(Request $request)
     {
-        $cacheId = 'transactions' . auth()->user()->id;
+        $cacheId =  auth()->user()->id . 'transactions' . $request->groupBy;
         if ($request->cached == 'true' && Cache::has($cacheId)) {
             return response()->json(Cache::get($cacheId));
         }
