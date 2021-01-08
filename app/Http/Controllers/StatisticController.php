@@ -19,12 +19,12 @@ class StatisticController extends Controller
 
     public function getMonthlySpendingsByCategory(Request $request)
     {
-        $cacheId = 'monthlySpendingsByCategory' . auth()->user()->id;
+        $cacheId = auth()->user()->id . 'monthlySpendingsByCategory' .  $request['year'];
         if (Cache::has($cacheId)) {
             return response()->json(Cache::get($cacheId));
         }
         $spendings = $this->statisticService->getMonthlySpendingsByCategory(auth()->user()->id, $request['year']);
-        Cache::put($cacheId, $spendings, 60);
+        Cache::put($cacheId, $spendings, 89280);
         return response()->json($spendings);
     }
 
@@ -35,12 +35,12 @@ class StatisticController extends Controller
 
     public function getAverageMonthlySpendingsByUsers(Request $request)
     {
-        $cacheId = 'averageMonthlySpendingsByUsers' . auth()->user()->id;
+        $cacheId = auth()->user()->id . 'averageMonthlySpendingsByUsers' . $request['year'];
         if (Cache::has($cacheId)) {
             return response()->json(Cache::get($cacheId));
         }
         $spendings = $this->statisticService->getAverageMonthlySpendingsByUsers(auth()->user()->id, $request['year']);
-        Cache::put($cacheId, $spendings, 60);
+        Cache::put($cacheId, $spendings, 89280);
         return response()->json($spendings);
     }
 }
